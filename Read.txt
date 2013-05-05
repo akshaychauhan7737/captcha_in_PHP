@@ -1,0 +1,34 @@
+<-- HTML Code -->
+
+ <img src="captcha_code_file.php?rand=<?php echo rand(); ?>" id='captchaimg' width="200" height="56" >
+            <ul class="ContCaptcha">
+            <li>Fill in what you see</li>
+            <li><input id="6_letters_code" name="6_letters_code" type="text" class="TextField"><br /><small>Can't read the image? click <a href="javascript: refreshCaptcha();" class="CaptchaClick">here</a> to refresh</small></li>
+            </ul>
+
+
+
+
+<-- PHP Script-->
+
+$errors=null;
+if (empty($_SESSION['6_letters_code']) || strcasecmp($_SESSION['6_letters_code'], $_POST['captcha_code']) != 0)
+  {
+			$errors = "The captcha code does not match!";
+			echo $errors;
+   }
+if(empty($errors)){
+//send mail script
+}
+
+
+
+<-- Javascript -->
+        /*
+	@refreshCaptcha function will regenerate captcha image without reloading page
+	*/
+function refreshCaptcha()
+{
+	var img = document.images['captchaimg'];
+	img.src = img.src.substring(0,img.src.lastIndexOf("?"))+"?rand="+Math.random()*1000;
+}
